@@ -48,39 +48,6 @@ def load_data(vars_name, data_root='data'):
         lst.append(df)
     df = pd.concat(lst)
     return df
-# for var in dst.variables:
-#     print(var, end=':::::')
-#     for attr in dst[var].ncattrs():
-#         print(f'{attr}: {dst[var].getncattr(attr)}')
-
-# dims=['time', 'lon', 'lat']
-# for dim in dims:
-#     print(f'{dim}:{dst.dimensions[dim].size}')
-
-# dims = dst.variables.keys()
-# print(len(dims))
-
-# all_vars_info = dst.variables.items()
-# all_vars_info=list(all_vars_info)
-
-# all_vars_name = []
-# all_vars_long_name = []
-# all_vars_units = []
-# all_vars_shape = []
-
-# for key in dst.variables.keys():
-    
-#     all_vars_name.append(key)
-#     all_vars_long_name.append(dst.variables[key].long_name)
-#     all_vars_units.append(dst.variables[key].units)
-#     all_vars_shape.append(dst.variables[key].shape)
-
-# a_vars_info = pd.DataFrame(all_vars_name,columns = ['name'])
-# a_vars_info['long_name'] = all_vars_long_name
-# a_vars_info['units'] = all_vars_units
-# a_vars_info['shape'] = all_vars_shape
-
-# data = dst.variables[dims[0]][:].data
 
 if  __name__ == "__main__":
     df_vars_info, time, lon, lat= load_meta_data()
