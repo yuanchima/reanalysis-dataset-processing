@@ -3,7 +3,7 @@ import os
 import concurrent.futures
 
 def download(url):
-    cmd = r'wget -N -nv --load-cookies C:\Users\yuanchima\Downloads\Documents\.urs_cookies --save-cookies C:\Users\yuanchima\Downloads\Documents\.urs_cookies --auth-no-challenge=on --keep-session-cookies --user=yuanchima --password=earthdata_M16384 --content-disposition -i'
+    cmd = r'wget -N --load-cookies C:\Users\yuanchima\Downloads\Documents\.urs_cookies --save-cookies C:\Users\yuanchima\Downloads\Documents\.urs_cookies --auth-no-challenge=on --keep-session-cookies --user=yuanchima --password=earthdata_M16384 --content-disposition -i'
     cmd = cmd + ' ' + url
     os.system(cmd)
 
@@ -43,7 +43,7 @@ def threadPoolExecutor(file_list, num_worker=5):
 
 if __name__ == "__main__":
     start = time.perf_counter()
-    file_path = 'subset_M2T1NXSLV_5.12.4_20210103_113249.txt'
+    file_path = 'subset_M2T1NXSLV_5.12.4_20210104_062202.txt'
     all_url = load_url(file_path)
     subset_root = './subset'
     split_file(all_url, 100, subset_root)
