@@ -6,6 +6,17 @@ from netCDF4 import Dataset
 
 
 def load_meta_data(data_root='data'):
+    """load meta data from data directory
+
+    Args:
+        data_root (str, optional): data directory path. Defaults to 'data'.
+
+    Returns:
+        df_vars_info (DataFrame): all variables information in netCDF4 format file.
+        time (ndarray): time field in netCDF4 format file.
+        lon (float): longitude information.
+        lat (float): latitude information.
+    """
     file_name = os.listdir(data_root)[3]
     dst = Dataset(os.path.join(data_root, file_name), mode='r', format="NETCDF4")
     # all_vars_info = list(dst.variables.items())
@@ -27,6 +38,15 @@ def load_meta_data(data_root='data'):
     return df_vars_info, time, lon, lat
 
 def load_data(vars_name, data_root='data'):
+    """load all netCDF4 format files from giving directory.
+
+    Args:
+        vars_name (list): variable names need to be loaded.
+        data_root (str, optional): dataset dircetory. Defaults to 'data'.
+
+    Returns:
+        DataFrame: return all data in a dataframe object.
+    """
     lst = list()
     for file_name in os.listdir(data_root):
         try:

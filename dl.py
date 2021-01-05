@@ -3,18 +3,39 @@ import os
 import concurrent.futures
 
 def download(user_name, password):
+    """downlaod function.
+
+    Args:
+        user_name (str): user name for download datasets.
+        password (str): password.
+    """
     def dl(input_file):
         cmd = f'wget -N -nv --load-cookies .urs_cookies --save-cookies .urs_cookies --auth-no-challenge=on --keep-session-cookies --user={user_name} --password={password} --content-disposition -i {input_file}'
         os.system(cmd)
     return dl
 
 def load_url(file_path):
+    """load all download link from a file.
+
+    Args:
+        file_path (str): file path.
+
+    Returns:
+        list: all download links.
+    """
     with open(file_path, 'r') as f:
         all_url = f.readlines()
     all_url = [url.replace("\n", "") for url in all_url]
     return all_url
 
 def split_file(all_url, file_nums, subset_root='./subset'):
+    """split download links into different files used for wget.
+
+    Args:
+        all_url (list): all download links list object.
+        file_nums (int): number of files
+        subset_root (str, optional): subset file directory. Defaults to './subset'.
+    """
     if os.path.exists(subset_root):
         files = os.listdir(subset_root)
         for f in files:
@@ -32,6 +53,13 @@ def split_file(all_url, file_nums, subset_root='./subset'):
                 f.writelines([f'{url}\n' for url in all_url[i*rows_per_file:]])
         
 def threadPoolExecutor(file_list, downloader, num_worker=5):
+    """muti thread download function.
+
+    Args:
+        file_list (list): file list object.
+        downloader (function): download function contain user name and password.
+        num_worker (int, optional): the number of thread. Defaults to 5.
+    """
     with concurrent.futures.ThreadPoolExecutor(num_worker) as executor:
         results = [executor.submit(downloader, f) for f in file_list]
         for f in concurrent.futures.as_completed(results):
